@@ -4,6 +4,13 @@ turn your github contribution graph into pixel art.
 
 draw on a graph or type text, pick colors, push to github. uses `git fast-import` to generate thousands of commits in seconds.
 
+## showcase / demo
+
+### text-to-graph
+![text2graph demo](https://github.com/user-attachments/assets/4d12010f-c379-45af-a3c6-da8d827d7429)
+![drawing tool](https://github.com/user-attachments/assets/2e6c4adc-d5d1-4f7d-be95-ae4b2897d912)
+
+
 ## install
 
 ### gui (recommended)
