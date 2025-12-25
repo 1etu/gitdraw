@@ -36,8 +36,9 @@ func (a *App) startup(ctx context.Context) {
 }
 
 type Point struct {
-	Week int `json:"week"`
-	Day  int `json:"day"`
+	Week  int `json:"week"`
+	Day   int `json:"day"`
+	Level int `json:"level"`
 }
 
 func (a *App) TextToPoints(text string) string {
@@ -76,14 +77,14 @@ func (a *App) Generate(pointsJSON string, year, intensity int, fillBg bool, remo
 		return "error: git user.email not configured (try 'git config --global user.email')"
 	}
 
-	fgDates := pointsToDates(points, year)
+	fgDateIntensities := pointsToDateIntensities(points, year, intensity)
 	var bgDates []time.Time
 
 	if fillBg {
 		bgDates = backgroundDates(points, year)
 	}
 
-	if err := fastImport(tmpDir, bgDates, 1, fgDates, intensity, name, email); err != nil {
+	if err := fastImportWithLevels(tmpDir, bgDates, 1, fgDateIntensities, name, email); err != nil {
 		return "error: commit generation failed"
 	}
 
@@ -110,6 +111,38 @@ func graphStart(year int) time.Time {
 	daysSinceSunday := int(dec31.Weekday())
 	lastSunday := dec31.AddDate(0, 0, -daysSinceSunday)
 	return lastSunday.AddDate(0, 0, -52*7)
+}
+
+type DateIntensity struct {
+	Date      time.Time
+	Intensity int
+}
+
+func pointsToDateIntensities(points []Point, year int, baseIntensity int) []DateIntensity {
+	start := graphStart(year)
+	now := time.Now()
+	var result []DateIntensity
+
+	for _, p := range points {
+		d := start.AddDate(0, 0, p.Week*7+p.Day)
+		if d.Year() == year && !d.After(now) {
+			// Scale intensity based on level (1-4)
+			// Level 4 = full intensity, Level 1 = 1/4 intensity
+			level := p.Level
+			if level < 1 {
+				level = 1
+			}
+			if level > 4 {
+				level = 4
+			}
+			cellIntensity := (baseIntensity * level) / 4
+			if cellIntensity < 1 {
+				cellIntensity = 1
+			}
+			result = append(result, DateIntensity{Date: d, Intensity: cellIntensity})
+		}
+	}
+	return result
 }
 
 func pointsToDates(points []Point, year int) []time.Time {
@@ -209,6 +242,64 @@ func fastImport(repoPath string, bgDates []time.Time, bgIntensity int, fgDates [
 	for _, d := range fgDates {
 		for i := 0; i < fgIntensity; i++ {
 			writeCommit(d.Add(time.Duration(i) * time.Hour))
+		}
+	}
+
+	stdin.Close()
+	return cmd.Wait()
+}
+
+func fastImportWithLevels(repoPath string, bgDates []time.Time, bgIntensity int, fgDateIntensities []DateIntensity, name, email string) error {
+	cmd := exec.Command("git", "fast-import", "--quiet")
+	cmd.Dir = repoPath
+
+	stdin, err := cmd.StdinPipe()
+	if err != nil {
+		return err
+	}
+
+	if err := cmd.Start(); err != nil {
+		return err
+	}
+
+	total := len(bgDates) * bgIntensity
+	for _, di := range fgDateIntensities {
+		total += di.Intensity
+	}
+	count := 0
+	var parentMark int
+
+	writeCommit := func(d time.Time) {
+		count++
+		ts := d.Unix() + int64(count)
+		content := fmt.Sprintf("%d\n", ts)
+		msg := fmt.Sprintf("draw %d/%d", count, total)
+
+		blobMark := count * 2
+		commitMark := count*2 + 1
+
+		fmt.Fprintf(stdin, "blob\nmark :%d\ndata %d\n%s\n", blobMark, len(content), content)
+		fmt.Fprintf(stdin, "commit refs/heads/main\nmark :%d\n", commitMark)
+		fmt.Fprintf(stdin, "author %s <%s> %d +0000\n", name, email, d.Unix())
+		fmt.Fprintf(stdin, "committer %s <%s> %d +0000\n", name, email, d.Unix())
+		fmt.Fprintf(stdin, "data %d\n%s\n", len(msg), msg)
+
+		if parentMark > 0 {
+			fmt.Fprintf(stdin, "from :%d\n", parentMark)
+		}
+		fmt.Fprintf(stdin, "M 100644 :%d gitdraw.txt\n\n", blobMark)
+		parentMark = commitMark
+	}
+
+	for _, d := range bgDates {
+		for i := 0; i < bgIntensity; i++ {
+			writeCommit(d.Add(time.Duration(i) * time.Hour))
+		}
+	}
+
+	for _, di := range fgDateIntensities {
+		for i := 0; i < di.Intensity; i++ {
+			writeCommit(di.Date.Add(time.Duration(i) * time.Hour))
 		}
 	}
 
