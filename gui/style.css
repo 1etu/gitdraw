@@ -40,12 +40,13 @@ body {
     background: var(--color-canvas-default);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
     user-select: none;
 }
 
 .app {
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
@@ -84,8 +85,6 @@ body {
 
 .main {
     flex: 1;
-    overflow-y: auto;
-    overflow-x: hidden;
     padding: 20px 24px 24px;
     display: flex;
     flex-direction: column;
