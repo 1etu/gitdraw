@@ -126,8 +126,8 @@ func pointsToDateIntensities(points []Point, year int, baseIntensity int) []Date
 	for _, p := range points {
 		d := start.AddDate(0, 0, p.Week*7+p.Day)
 		if d.Year() == year && !d.After(now) {
-			// Scale intensity based on level (1-4)
-			// Level 4 = full intensity, Level 1 = 1/4 intensity
+			// lv 1-4
+			// lv 4 = full
 			level := p.Level
 			if level < 1 {
 				level = 1

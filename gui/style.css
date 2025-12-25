@@ -221,6 +221,73 @@ body {
     box-shadow: 0 0 0 2px var(--color-canvas-subtle), 0 0 0 4px var(--color-accent-fg);
 }
 
+.tool-picker {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px;
+    background: var(--color-canvas-default);
+    border: 1px solid var(--color-border-default);
+    border-radius: 6px;
+}
+
+.tool-btn {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    color: var(--color-fg-muted);
+    transition: all 0.15s;
+}
+
+.tool-btn:hover {
+    background: var(--color-btn-bg);
+    color: var(--color-fg-default);
+}
+
+.tool-btn.active {
+    background: var(--color-btn-bg);
+    border-color: var(--color-accent-fg);
+    color: var(--color-accent-fg);
+}
+
+.tool-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+.tool-divider {
+    width: 1px;
+    height: 20px;
+    background: var(--color-border-default);
+    margin: 0 4px;
+}
+
+.tooltip {
+    position: fixed;
+    padding: 4px 8px;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--color-fg-default);
+    background: var(--color-canvas-subtle);
+    border: 1px solid var(--color-border-default);
+    border-radius: 4px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.1s;
+    z-index: 1000;
+    white-space: nowrap;
+}
+
+.tooltip.visible {
+    opacity: 1;
+}
+
 .text-input-area {
     display: none;
     margin-bottom: 12px;

@@ -51,15 +51,56 @@
                                 <button class="color-option active" data-level="4" title="Level 4"></button>
                             </div>
                         </div>
+
+                        <div class="tool-picker" id="tool-picker">
+                            <button class="tool-btn active" data-tool="brush" title="Brush (B)">
+                                <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor">
+                                    <path d="M11.013 1.427a1.75 1.75 0 0 1 2.474 0l1.086 1.086a1.75 1.75 0 0 1 0 2.474l-8.61 8.61c-.21.21-.47.364-.756.445l-3.251.93a.75.75 0 0 1-.927-.928l.929-3.25c.081-.286.235-.547.445-.758l8.61-8.61Z"></path>
+                                </svg>
+                            </button>
+                            <button class="tool-btn" data-tool="fill" title="Fill (F)">
+                                <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor">
+                                    <path d="M2.5 13.5A.5.5 0 0 1 3 13h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zM13.991 3.592L7.5 10.583 4.408 7.492l6.491-6.491 3.092 3.091zM12.5.5 6.5 6.5 8 8l6-6-1.5-1.5z"></path>
+                                </svg>
+                            </button>
+                            <button class="tool-btn" data-tool="line" title="Line (L)">
+                                <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor">
+                                    <path d="M2.5 12.5a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-11z" transform="rotate(-45 8 8)"></path>
+                                </svg>
+                            </button>
+                            <button class="tool-btn" data-tool="rect" title="Rectangle (X)">
+                                <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor">
+                                    <path d="M14 2.5a.5.5 0 0 0-.5-.5h-11a.5.5 0 0 0-.5.5v11a.5.5 0 0 0 .5.5h11a.5.5 0 0 0 .5-.5v-11zM3 3h10v10H3V3z"></path>
+                                </svg>
+                            </button>
+                            <div class="tool-divider"></div>
+                            <button class="tool-btn" id="mirror-btn" title="Mirror (M)">
+                                <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor">
+                                    <path d="M8 1v14M4 4l-2 4 2 4M12 4l2 4-2 4" stroke="currentColor" stroke-width="1.5" fill="none"></path>
+                                </svg>
+                            </button>
+                            <div class="tool-divider"></div>
+                            <button class="tool-btn" id="undo-btn" title="Undo (Z)">
+                                <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor">
+                                    <path d="M4 6h7a3 3 0 1 1 0 6H9.5a.5.5 0 0 0 0 1H11a4 4 0 0 0 0-8H4.5V3.5a.5.5 0 0 0-.854-.354l-2.5 2.5a.5.5 0 0 0 0 .708l2.5 2.5A.5.5 0 0 0 4.5 8.5V6z"></path>
+                                </svg>
+                            </button>
+                            <button class="tool-btn" id="redo-btn" title="Redo (Y)">
+                                <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor">
+                                    <path d="M12 6H5a3 3 0 1 0 0 6h1.5a.5.5 0 0 1 0 1H5a4 4 0 0 1 0-8h6.5V3.5a.5.5 0 0 1 .854-.354l2.5 2.5a.5.5 0 0 1 0 .708l-2.5 2.5A.5.5 0 0 1 11.5 8.5V6z"></path>
+                                </svg>
+                            </button>
+                        </div>
                     </div>
 
                     <div class="toolbar-right">
                         <select id="year-select" class="select">
-                            <option value="2025">2025</option>
-                            <option value="2024">2024</option>
-                            <option value="2023">2023</option>
-                            <option value="2022">2022</option>
                         </select>
+                        <button class="btn btn-sm btn-icon" id="random-btn" title="Random Fill">
+                            <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
+                                <path d="M5.22 14.78a.75.75 0 0 0 1.06-1.06L4.56 12h8.69a.75.75 0 0 0 0-1.5H4.56l1.72-1.72a.75.75 0 0 0-1.06-1.06l-3 3a.75.75 0 0 0 0 1.06l3 3Zm5.56-6.5a.75.75 0 1 1-1.06-1.06l1.72-1.72H2.75a.75.75 0 0 1 0-1.5h8.69L9.72 2.28a.75.75 0 0 1 1.06-1.06l3 3a.75.75 0 0 1 0 1.06l-3 3Z"></path>
+                            </svg>
+                        </button>
                         <button class="btn btn-sm btn-icon" id="clear-btn" title="Clear Canvas">
                             <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
                                 <path d="M11 1.75V3h2.25a.75.75 0 0 1 0 1.5H2.75a.75.75 0 0 1 0-1.5H5V1.75C5 .784 5.784 0 6.75 0h2.5C10.216 0 11 .784 11 1.75ZM4.496 6.675l.66 6.6a.25.25 0 0 0 .249.225h5.19a.25.25 0 0 0 .249-.225l.66-6.6a.75.75 0 0 1 1.492.149l-.66 6.6A1.748 1.748 0 0 1 10.595 15h-5.19a1.75 1.75 0 0 1-1.741-1.575l-.66-6.6a.75.75 0 1 1 1.492-.15ZM6.5 1.75V3h3V1.75a.25.25 0 0 0-.25-.25h-2.5a.25.25 0 0 0-.25.25Z"></path>
@@ -200,6 +241,8 @@
         <span class="toast-message" id="toast-message"></span>
     </div>
 
+    <div class="tooltip" id="tooltip"></div>
+
     <script src="wailsjs/runtime/runtime.js"></script>
     <script src="wailsjs/go/main/App.js"></script>
     <script>
@@ -207,7 +250,12 @@
             cells: new Map(),
             isDragging: false,
             currentLevel: 4,
-            mode: 'draw'
+            mode: 'draw',
+            tool: 'brush',
+            mirror: false,
+            history: [],
+            historyIndex: -1,
+            lineStart: null
         };
 
         const $ = id => document.getElementById(id);
@@ -220,6 +268,7 @@
             intensityValue: $('intensity-value'),
             fillBgCheckbox: $('fill-bg'),
             remoteUrlInput: $('remote-url'),
+            randomBtn: $('random-btn'),
             clearBtn: $('clear-btn'),
             generateBtn: $('generate-btn'),
             commitCount: $('commit-count'),
@@ -230,6 +279,11 @@
             renderTextBtn: $('render-text-btn'),
             graphHint: $('graph-hint').querySelector('span'),
             colorPicker: $('color-picker'),
+            toolPicker: $('tool-picker'),
+            mirrorBtn: $('mirror-btn'),
+            undoBtn: $('undo-btn'),
+            redoBtn: $('redo-btn'),
+            tooltip: $('tooltip'),
             toast: $('toast'),
             toastMsg: $('toast-message'),
             toastIcon: $('toast-icon')
@@ -254,29 +308,92 @@
             $$('.cell').forEach(cell => {
                 cell.addEventListener('mousedown', onCellMouseDown);
                 cell.addEventListener('mouseenter', onCellMouseEnter);
+                cell.addEventListener('mousemove', onCellHover);
+                cell.addEventListener('mouseleave', hideTooltip);
                 cell.addEventListener('touchstart', onCellTouchStart, { passive: false });
                 cell.addEventListener('touchmove', onCellTouchMove, { passive: false });
             });
         }
 
+        function getDateForCell(week, day) {
+            const year = parseInt(els.yearSelect.value);
+            const dec31 = new Date(year, 11, 31);
+            const daysSinceSunday = dec31.getDay();
+            const lastSunday = new Date(dec31);
+            lastSunday.setDate(dec31.getDate() - daysSinceSunday);
+            const graphStart = new Date(lastSunday);
+            graphStart.setDate(lastSunday.getDate() - 52 * 7);
+            const cellDate = new Date(graphStart);
+            cellDate.setDate(graphStart.getDate() + week * 7 + day);
+            return cellDate;
+        }
+
+        function onCellHover(e) {
+            const cell = e.target;
+            const week = parseInt(cell.dataset.week);
+            const day = parseInt(cell.dataset.day);
+            const date = getDateForCell(week, day);
+            const options = { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' };
+            els.tooltip.textContent = date.toLocaleDateString('en-US', options);
+            els.tooltip.style.left = e.pageX + 10 + 'px';
+            els.tooltip.style.top = e.pageY + 10 + 'px';
+            els.tooltip.classList.add('visible');
+        }
+
+        function hideTooltip() {
+            els.tooltip.classList.remove('visible');
+        }
+
         function onCellMouseDown(e) {
             if (state.mode !== 'draw') return;
-            state.isDragging = true;
-            paintCell(e.target);
+            const cell = e.target;
+            
+            if (state.tool === 'line' || state.tool === 'rect') {
+                state.lineStart = { week: parseInt(cell.dataset.week), day: parseInt(cell.dataset.day) };
+            } else if (state.tool === 'fill') {
+                saveHistory();
+                floodFill(parseInt(cell.dataset.week), parseInt(cell.dataset.day));
+            } else {
+                state.isDragging = true;
+                saveHistory();
+                applyBrush(cell);
+            }
             e.preventDefault();
+        }
+
+        function onCellMouseUp(e) {
+            if (state.mode !== 'draw') return;
+            const cell = e.target.closest('.cell');
+            if (!cell) return;
+            
+            if (state.lineStart && (state.tool === 'line' || state.tool === 'rect')) {
+                saveHistory();
+                const endWeek = parseInt(cell.dataset.week);
+                const endDay = parseInt(cell.dataset.day);
+                
+                if (state.tool === 'line') {
+                    drawLine(state.lineStart.week, state.lineStart.day, endWeek, endDay);
+                } else {
+                    drawRect(state.lineStart.week, state.lineStart.day, endWeek, endDay);
+                }
+                state.lineStart = null;
+            }
         }
 
         function onCellMouseEnter(e) {
             if (!state.isDragging || state.mode !== 'draw') return;
-            paintCell(e.target);
+            if (state.tool === 'brush') {
+                applyBrush(e.target);
+            }
         }
 
         function onCellTouchStart(e) {
             if (state.mode !== 'draw') return;
             state.isDragging = true;
+            saveHistory();
             const touch = e.touches[0];
             const cell = document.elementFromPoint(touch.clientX, touch.clientY);
-            if (cell?.classList.contains('cell')) paintCell(cell);
+            if (cell?.classList.contains('cell')) applyBrush(cell);
             e.preventDefault();
         }
 
@@ -284,8 +401,145 @@
             if (!state.isDragging || state.mode !== 'draw') return;
             const touch = e.touches[0];
             const cell = document.elementFromPoint(touch.clientX, touch.clientY);
-            if (cell?.classList.contains('cell')) paintCell(cell);
+            if (cell?.classList.contains('cell')) applyBrush(cell);
             e.preventDefault();
+        }
+
+        function applyBrush(cell) {
+            const week = parseInt(cell.dataset.week);
+            const day = parseInt(cell.dataset.day);
+            paintCellAt(week, day);
+            if (state.mirror) {
+                const mirrorWeek = 52 - week;
+                if (mirrorWeek >= 0 && mirrorWeek < 53) {
+                    paintCellAt(mirrorWeek, day);
+                }
+            }
+        }
+
+        function paintCellAt(week, day) {
+            const key = `${week}-${day}`;
+            const level = state.currentLevel;
+            const cell = document.querySelector(`.cell[data-week="${week}"][data-day="${day}"]`);
+            if (!cell) return;
+
+            if (level === 0) {
+                state.cells.delete(key);
+                cell.dataset.level = '0';
+            } else {
+                state.cells.set(key, level);
+                cell.dataset.level = level.toString();
+            }
+            updateCount();
+        }
+
+        function floodFill(startWeek, startDay) {
+            const startKey = `${startWeek}-${startDay}`;
+            const targetLevel = state.cells.get(startKey) || 0;
+            const fillLevel = state.currentLevel;
+            
+            if (targetLevel === fillLevel) return;
+            
+            const stack = [[startWeek, startDay]];
+            const visited = new Set();
+            
+            while (stack.length > 0) {
+                const [week, day] = stack.pop();
+                const key = `${week}-${day}`;
+                
+                if (visited.has(key)) continue;
+                if (week < 0 || week >= 53 || day < 0 || day >= 7) continue;
+                
+                const currentLevel = state.cells.get(key) || 0;
+                if (currentLevel !== targetLevel) continue;
+                
+                visited.add(key);
+                paintCellAt(week, day);
+                
+                stack.push([week + 1, day]);
+                stack.push([week - 1, day]);
+                stack.push([week, day + 1]);
+                stack.push([week, day - 1]);
+            }
+        }
+
+        function drawLine(x0, y0, x1, y1) {
+            const dx = Math.abs(x1 - x0);
+            const dy = Math.abs(y1 - y0);
+            const sx = x0 < x1 ? 1 : -1;
+            const sy = y0 < y1 ? 1 : -1;
+            let err = dx - dy;
+            
+            while (true) {
+                paintCellAt(x0, y0);
+                if (state.mirror) {
+                    paintCellAt(52 - x0, y0);
+                }
+                
+                if (x0 === x1 && y0 === y1) break;
+                const e2 = 2 * err;
+                if (e2 > -dy) { err -= dy; x0 += sx; }
+                if (e2 < dx) { err += dx; y0 += sy; }
+            }
+        }
+
+        function drawRect(x0, y0, x1, y1) {
+            const minX = Math.min(x0, x1);
+            const maxX = Math.max(x0, x1);
+            const minY = Math.min(y0, y1);
+            const maxY = Math.max(y0, y1);
+            
+            for (let x = minX; x <= maxX; x++) {
+                paintCellAt(x, minY);
+                paintCellAt(x, maxY);
+                if (state.mirror) {
+                    paintCellAt(52 - x, minY);
+                    paintCellAt(52 - x, maxY);
+                }
+            }
+            for (let y = minY + 1; y < maxY; y++) {
+                paintCellAt(minX, y);
+                paintCellAt(maxX, y);
+                if (state.mirror) {
+                    paintCellAt(52 - minX, y);
+                    paintCellAt(52 - maxX, y);
+                }
+            }
+        }
+
+        function saveHistory() {
+            state.history = state.history.slice(0, state.historyIndex + 1);
+            state.history.push(new Map(state.cells));
+            state.historyIndex++;
+            if (state.history.length > 50) {
+                state.history.shift();
+                state.historyIndex--;
+            }
+        }
+
+        function undo() {
+            if (state.historyIndex < 0) return;
+            state.historyIndex--;
+            restoreFromHistory();
+        }
+
+        function redo() {
+            if (state.historyIndex >= state.history.length - 1) return;
+            state.historyIndex++;
+            restoreFromHistory();
+        }
+
+        function restoreFromHistory() {
+            if (state.historyIndex < 0) {
+                state.cells.clear();
+            } else {
+                state.cells = new Map(state.history[state.historyIndex]);
+            }
+            $$('.cell').forEach(c => {
+                const key = `${c.dataset.week}-${c.dataset.day}`;
+                c.dataset.level = (state.cells.get(key) || 0).toString();
+            });
+            updateCount();
         }
 
         function paintCell(cell) {
@@ -310,6 +564,26 @@
                     state.currentLevel = parseInt(btn.dataset.level);
                 });
             });
+        }
+
+        function setupTools() {
+            $$('.tool-btn[data-tool]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    $$('.tool-btn[data-tool]').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    state.tool = btn.dataset.tool;
+                });
+            });
+            
+            els.mirrorBtn.addEventListener('click', () => {
+                state.mirror = !state.mirror;
+                els.mirrorBtn.classList.toggle('active', state.mirror);
+            });
+            
+            els.undoBtn.addEventListener('click', undo);
+            els.redoBtn.addEventListener('click', redo);
+            
+            document.addEventListener('mouseup', onCellMouseUp);
         }
 
         function setupModeTabs() {
@@ -364,6 +638,40 @@
             state.cells.clear();
             $$('.cell').forEach(c => c.dataset.level = '0');
             updateCount();
+        }
+
+        function randomFill() {
+            clearGraph();
+            
+            const cells = $$('.cell');
+            const activityb = 0.4 + Math.random() * 0.3;
+            
+            cells.forEach(cell => {
+                const week = parseInt(cell.dataset.week);
+                const day = parseInt(cell.dataset.day);
+                const key = `${week}-${day}`;
+                
+                const weeknd = day === 0 || day === 6;
+                const baseee = weeknd ? 0.15 : activityb;
+                
+                const streak = Math.sin(week * 0.5) * 0.2;
+                const chance = Math.max(0, Math.min(1, baseee + streak));
+                
+                if (Math.random() < chance) {
+                    const r = Math.random();
+                    let level;
+                    if (r < 0.35) level = 1;
+                    else if (r < 0.6) level = 2;
+                    else if (r < 0.85) level = 3;
+                    else level = 4;
+                    
+                    state.cells.set(key, level);
+                    cell.dataset.level = level.toString();
+                }
+            });
+            
+            updateCount();
+            showToast('Random pattern generated!', 'success');
         }
 
         function updateCount() {
@@ -429,6 +737,68 @@
             setTimeout(() => els.toast.classList.remove('visible'), 4000);
         }
 
+        function setupKeyboard() {
+            document.addEventListener('keydown', e => {
+                if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+                
+                const key = e.key.toLowerCase();
+                
+                if (key >= '0' && key <= '4') {
+                    const level = parseInt(key);
+                    state.currentLevel = level;
+                    $$('.color-option').forEach(b => b.classList.remove('active'));
+                    const btn = $(`.color-option[data-level="${level}"]`);
+                    if (btn) btn.classList.add('active');
+                    return;
+                }
+                
+                switch (key) {
+                    case 'c':
+                        clearGraph();
+                        break;
+                    case 'r':
+                        randomFill();
+                        break;
+                    case 'z':
+                        if (e.metaKey || e.ctrlKey) {
+                            e.preventDefault();
+                            if (e.shiftKey) redo();
+                            else undo();
+                        }
+                        break;
+                    case 'y':
+                        if (e.metaKey || e.ctrlKey) {
+                            e.preventDefault();
+                            redo();
+                        }
+                        break;
+                    case 'b':
+                        selectTool('brush');
+                        break;
+                    case 'f':
+                        selectTool('fill');
+                        break;
+                    case 'l':
+                        selectTool('line');
+                        break;
+                    case 'x':
+                        selectTool('rect');
+                        break;
+                    case 'm':
+                        state.mirror = !state.mirror;
+                        els.mirrorBtn.classList.toggle('active', state.mirror);
+                        break;
+                }
+            });
+        }
+
+        function selectTool(tool) {
+            state.tool = tool;
+            $$('.tool-btn[data-tool]').forEach(b => b.classList.remove('active'));
+            const btn = $(`.tool-btn[data-tool="${tool}"]`);
+            if (btn) btn.classList.add('active');
+        }
+
         function setupEvents() {
             document.addEventListener('mouseup', () => state.isDragging = false);
             document.addEventListener('touchend', () => state.isDragging = false);
@@ -446,6 +816,7 @@
                 els.authNotice.classList.toggle('visible', els.remoteUrlInput.value.trim() !== '');
             });
 
+            els.randomBtn.addEventListener('click', randomFill);
             els.clearBtn.addEventListener('click', clearGraph);
             els.generateBtn.addEventListener('click', generate);
             els.renderTextBtn.addEventListener('click', renderText);
@@ -454,9 +825,23 @@
             });
         }
 
+        function populateYears() {
+            const currentYear = new Date().getFullYear();
+            const startYear = 1990;
+            let html = '';
+            for (let year = currentYear; year >= startYear; year--) {
+                html += `<option value="${year}">${year}</option>`;
+            }
+            els.yearSelect.innerHTML = html;
+            els.currentYear.textContent = currentYear;
+        }
+
         function init() {
+            populateYears();
             createGraph();
             setupColorPicker();
+            setupTools();
+            setupKeyboard();
             setupModeTabs();
             setupEvents();
             updateCount();
