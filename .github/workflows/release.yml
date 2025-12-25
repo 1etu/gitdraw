@@ -1,0 +1,122 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build-gui:
+    strategy:
+      matrix:
+        include:
+          - platform: darwin/amd64
+            os: macos-latest
+            name: macOS-Intel
+          - platform: darwin/arm64
+            os: macos-latest
+            name: macOS-AppleSilicon
+          - platform: windows/amd64
+            os: windows-latest
+            name: Windows-x64
+
+    runs-on: ${{ matrix.os }}
+    
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.21'
+
+      - name: Install Wails
+        run: go install github.com/wailsapp/wails/v2/cmd/wails@latest
+
+      - name: Build GUI
+        run: wails build -tags gui -platform ${{ matrix.platform }}
+
+      - name: Package macOS
+        if: runner.os == 'macOS'
+        run: |
+          cd build/bin
+          zip -r GitDraw-${{ matrix.name }}.zip gitdraw.app
+          mv GitDraw-${{ matrix.name }}.zip ../../
+
+      - name: Package Windows
+        if: runner.os == 'Windows'
+        run: |
+          cd build/bin
+          Compress-Archive -Path GitDraw.exe -DestinationPath GitDraw-${{ matrix.name }}.zip
+          Move-Item GitDraw-${{ matrix.name }}.zip ../../
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: GitDraw-${{ matrix.name }}
+          path: GitDraw-${{ matrix.name }}.zip
+
+  build-cli:
+    strategy:
+      matrix:
+        include:
+          - goos: darwin
+            goarch: amd64
+            name: cli-macos-amd64
+          - goos: darwin
+            goarch: arm64
+            name: cli-macos-arm64
+          - goos: windows
+            goarch: amd64
+            name: cli-windows-amd64
+            ext: .exe
+          - goos: linux
+            goarch: amd64
+            name: cli-linux-amd64
+
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.21'
+
+      - name: Build CLI
+        env:
+          GOOS: ${{ matrix.goos }}
+          GOARCH: ${{ matrix.goarch }}
+        run: |
+          go build -o gitdraw-${{ matrix.name }}${{ matrix.ext }} .
+          zip gitdraw-${{ matrix.name }}.zip gitdraw-${{ matrix.name }}${{ matrix.ext }}
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: gitdraw-${{ matrix.name }}
+          path: gitdraw-${{ matrix.name }}.zip
+
+  release:
+    needs: [build-gui, build-cli]
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: dist
+          merge-multiple: true
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: dist/*.zip
+          generate_release_notes: true
+          draft: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

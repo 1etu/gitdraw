@@ -1,0 +1,15 @@
+{
+  "$schema": "https://wails.io/schemas/config.v2.json",
+  "name": "gitdraw",
+  "outputfilename": "GitDraw",
+  "frontend:install": "",
+  "frontend:build": "",
+  "frontend:dev:watcher": "",
+  "frontend:dev:serverUrl": "",
+  "wailsjsdir": "./frontend/wailsjs",
+  "tags": ["gui"],
+  "author": {
+    "name": "gitdraw",
+    "email": "gitdraw@local"
+  }
+}

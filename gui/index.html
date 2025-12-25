@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitDraw</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app">
+        <div class="titlebar">
+            <div class="titlebar-drag"></div>
+            <div class="titlebar-title">
+                <svg class="logo" height="22" viewBox="0 0 16 16" width="22" fill="currentColor">
+                    <path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"></path>
+                </svg>
+                <span>GitDraw</span>
+            </div>
+        </div>
+
+        <main class="main">
+            <div class="graph-card">
+                <div class="toolbar">
+                    <div class="toolbar-left">
+                        <div class="mode-tabs">
+                            <button class="mode-tab active" data-mode="draw" title="Draw Mode">
+                                <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
+                                    <path d="M11.013 1.427a1.75 1.75 0 0 1 2.474 0l1.086 1.086a1.75 1.75 0 0 1 0 2.474l-8.61 8.61c-.21.21-.47.364-.756.445l-3.251.93a.75.75 0 0 1-.927-.928l.929-3.25c.081-.286.235-.547.445-.758l8.61-8.61Zm.176 4.823L9.75 4.81l-6.286 6.287a.253.253 0 0 0-.064.108l-.558 1.953 1.953-.558a.253.253 0 0 0 .108-.064Zm1.238-3.763a.25.25 0 0 0-.354 0L10.811 3.75l1.439 1.44 1.263-1.263a.25.25 0 0 0 0-.354Z"></path>
+                                </svg>
+                                Draw
+                            </button>
+                            <button class="mode-tab" data-mode="text" title="Text Mode">
+                                <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
+                                    <path d="M6.71 10H2.332l-.874 2.498a.75.75 0 0 1-1.415-.496l3.39-9.688a1.217 1.217 0 0 1 2.302.018l3.227 9.681a.75.75 0 0 1-1.423.474Zm3.13-4.358C10.53 4.374 11.87 4 13 4c1.5 0 3 .939 3 2.601v5.649a.75.75 0 0 1-1.5 0v-.539c-.548.706-1.058 1.022-2.091 1.172-.955.138-1.907-.32-2.325-1.246-.296-.656-.262-1.487.164-2.078.595-.824 1.704-1.132 2.752-.959.474.078.951.231 1.5.479V8.6c0-.918-.828-1.099-1.5-1.099-.869 0-1.586.255-2.174.768a.75.75 0 0 1-.97-1.144ZM14.5 10.6v-1.067c-.406-.233-.86-.389-1.285-.449-.6-.084-1.263.075-1.517.43a.74.74 0 0 0-.106.464.76.76 0 0 0 .436.583c.255.126.602.151.94.107.752-.1 1.163-.383 1.532-.668Zm-8.757-.593L4.52 6.467h-.038L3.29 10.006Z"></path>
+                                </svg>
+                                Text
+                            </button>
+                        </div>
+
+                        <div class="color-picker" id="color-picker">
+                            <span class="color-picker-label">Color:</span>
+                            <div class="color-options">
+                                <button class="color-option" data-level="0" title="Erase">
+                                    <svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor">
+                                        <path d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l3.22 3.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-3.22 3.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06Z"></path>
+                                    </svg>
+                                </button>
+                                <button class="color-option" data-level="1" title="Level 1"></button>
+                                <button class="color-option" data-level="2" title="Level 2"></button>
+                                <button class="color-option" data-level="3" title="Level 3"></button>
+                                <button class="color-option active" data-level="4" title="Level 4"></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="toolbar-right">
+                        <select id="year-select" class="select">
+                            <option value="2025">2025</option>
+                            <option value="2024">2024</option>
+                            <option value="2023">2023</option>
+                            <option value="2022">2022</option>
+                        </select>
+                        <button class="btn btn-sm btn-icon" id="clear-btn" title="Clear Canvas">
+                            <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
+                                <path d="M11 1.75V3h2.25a.75.75 0 0 1 0 1.5H2.75a.75.75 0 0 1 0-1.5H5V1.75C5 .784 5.784 0 6.75 0h2.5C10.216 0 11 .784 11 1.75ZM4.496 6.675l.66 6.6a.25.25 0 0 0 .249.225h5.19a.25.25 0 0 0 .249-.225l.66-6.6a.75.75 0 0 1 1.492.149l-.66 6.6A1.748 1.748 0 0 1 10.595 15h-5.19a1.75 1.75 0 0 1-1.741-1.575l-.66-6.6a.75.75 0 1 1 1.492-.15ZM6.5 1.75V3h3V1.75a.25.25 0 0 0-.25-.25h-2.5a.25.25 0 0 0-.25.25Z"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="text-input-area" id="text-input-area">
+                    <div class="text-input-wrapper">
+                        <input type="text" id="text-input" class="text-input" placeholder="Enter text to draw..." maxlength="10" spellcheck="false" autocomplete="off">
+                        <button class="btn btn-primary" id="render-text-btn">
+                            <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
+                                <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Zm4.879-2.773 4.264 2.559a.25.25 0 0 1 0 .428l-4.264 2.559A.25.25 0 0 1 6 10.559V5.442a.25.25 0 0 1 .379-.215Z"></path>
+                            </svg>
+                            Render
+                        </button>
+                    </div>
+                    <p class="text-hint">Supports A-Z, 0-9. Maximum ~8 characters fit on the graph.</p>
+                </div>
+
+                <div class="graph-stats">
+                    <span class="stats-count"><strong id="commit-count">0</strong> contributions in <strong id="current-year">2025</strong></span>
+                </div>
+
+                <div class="graph-wrapper">
+                    <div class="graph-scroll">
+                        <table class="graph-table">
+                            <thead>
+                                <tr>
+                                    <td class="graph-label"></td>
+                                    <td colspan="4">Jan</td>
+                                    <td colspan="4">Feb</td>
+                                    <td colspan="5">Mar</td>
+                                    <td colspan="4">Apr</td>
+                                    <td colspan="4">May</td>
+                                    <td colspan="5">Jun</td>
+                                    <td colspan="4">Jul</td>
+                                    <td colspan="4">Aug</td>
+                                    <td colspan="5">Sep</td>
+                                    <td colspan="4">Oct</td>
+                                    <td colspan="4">Nov</td>
+                                    <td colspan="5">Dec</td>
+                                </tr>
+                            </thead>
+                            <tbody id="graph-body">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="graph-footer">
+                    <div class="graph-hint" id="graph-hint">
+                        <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor">
+                            <path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path>
+                        </svg>
+                        <span>Click cells to draw • Drag to paint • Select colors above</span>
+                    </div>
+                    <div class="graph-legend">
+                        <span>Less</span>
+                        <div class="legend-cell" data-level="0"></div>
+                        <div class="legend-cell" data-level="1"></div>
+                        <div class="legend-cell" data-level="2"></div>
+                        <div class="legend-cell" data-level="3"></div>
+                        <div class="legend-cell" data-level="4"></div>
+                        <span>More</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="settings-row">
+                <div class="settings-card">
+                    <div class="card-header">
+                        <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
+                            <path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h8.75a.75.75 0 0 1 .75.75v12.5a.75.75 0 0 1-.75.75h-2.5a.75.75 0 0 1 0-1.5h1.75v-2h-8a1 1 0 0 0-.714 1.7.75.75 0 1 1-1.072 1.05A2.495 2.495 0 0 1 2 11.5Zm10.5-1h-8a1 1 0 0 0-1 1v6.708A2.486 2.486 0 0 1 4.5 9h8ZM5 12.25a.25.25 0 0 1 .25-.25h3.5a.25.25 0 0 1 .25.25v3.25a.25.25 0 0 1-.4.2l-1.45-1.087a.249.249 0 0 0-.3 0L5.4 15.7a.25.25 0 0 1-.4-.2Z"></path>
+                        </svg>
+                        <h3>Repository</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="remote-url">Remote URL</label>
+                            <input type="text" id="remote-url" class="input" placeholder="github.com/username/repo" spellcheck="false">
+                            <p class="form-hint">Leave empty to generate without pushing</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="settings-card">
+                    <div class="card-header">
+                        <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
+                            <path d="M8 0a8.2 8.2 0 0 1 .701.031C6.444.095 4.293 1.7 3.028 4H1.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1.028a12.26 12.26 0 0 0-.072 1.5H1.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h.956c.075.558.178 1.08.312 1.5H1.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1.528c1.265 2.3 3.416 3.905 5.671 3.969A8.2 8.2 0 0 1 8 16a8 8 0 1 1 0-16ZM3.135 4h.851C4.65 2.64 5.68 1.685 6.79 1.5 5.278 1.72 3.92 2.66 3.135 4Zm6.166 0c-.658-1.227-1.74-2.064-2.85-2.064S4.557 2.773 3.899 4h5.402Zm-5.42 1.5h5.638c.16.567.27 1.248.291 2H4.09c.02-.752.131-1.433.291-2Zm5.638 3.5H4.381c.02.752.131 1.433.291 2h5.056c.16-.567.27-1.248.291-2ZM9.21 1.5c1.11.185 2.14 1.14 2.804 2.5h.851c-.786-1.34-2.143-2.28-3.655-2.5Zm3.32 4h-1.111c.16.567.27 1.248.291 2H12.8a6.74 6.74 0 0 0-.27-2Zm.27 3.5h-1.09c-.02.752-.131 1.433-.291 2h1.111a6.74 6.74 0 0 0 .27-2Zm-1.449 3.5c-.664 1.36-1.694 2.315-2.804 2.5 1.512-.22 2.869-1.16 3.655-2.5h-.851Zm-5.402 0c.658 1.227 1.74 2.064 2.85 2.064s2.192-.837 2.85-2.064H5.949Zm-2.814 0h.851c.664 1.36 1.694 2.315 2.804 2.5-1.512-.22-2.869-1.16-3.655-2.5Zm-1.754-3.5a6.74 6.74 0 0 0 .27 2h1.111c-.16-.567-.27-1.248-.291-2H1.381Zm.27-1.5h1.09c.02-.752.131-1.433.291-2H1.651a6.74 6.74 0 0 0-.27 2Z"></path>
+                        </svg>
+                        <h3>Commit Settings</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="intensity">Commits per cell</label>
+                            <div class="range-input">
+                                <input type="range" id="intensity" min="1" max="40" value="10">
+                                <span class="range-value" id="intensity-value">10</span>
+                            </div>
+                            <p class="form-hint">Higher values make cells appear darker on GitHub</p>
+                        </div>
+                        <div class="form-group">
+                            <label class="checkbox">
+                                <input type="checkbox" id="fill-bg">
+                                <span class="checkbox-mark"></span>
+                                <span>Fill background with subtle commits</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="auth-notice" id="auth-notice">
+                <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
+                    <path d="M4 4a4 4 0 1 1 8 0v2h.25c.966 0 1.75.784 1.75 1.75v5.5A1.75 1.75 0 0 1 12.25 15h-8.5A1.75 1.75 0 0 1 2 13.25v-5.5C2 6.784 2.784 6 3.75 6H4Zm8.25 3.5h-8.5a.25.25 0 0 0-.25.25v5.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-5.5a.25.25 0 0 0-.25-.25ZM10.5 6V4a2.5 2.5 0 1 0-5 0v2Z"></path>
+                </svg>
+                <div class="auth-notice-content">
+                    <strong>Authentication Required</strong>
+                    <p>GitDraw uses your system's git credentials (SSH keys or credential helper). Ensure you're authenticated before pushing.</p>
+                </div>
+            </div>
+
+            <div class="action-area">
+                <button class="btn btn-primary btn-lg" id="generate-btn">
+                    <svg viewBox="0 0 16 16" width="18" height="18" fill="currentColor">
+                        <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Zm4.879-2.773 4.264 2.559a.25.25 0 0 1 0 .428l-4.264 2.559A.25.25 0 0 1 6 10.559V5.442a.25.25 0 0 1 .379-.215Z"></path>
+                    </svg>
+                    Generate Commits
+                </button>
+            </div>
+        </main>
+    </div>
+
+    <div class="toast" id="toast">
+        <div class="toast-icon" id="toast-icon"></div>
+        <span class="toast-message" id="toast-message"></span>
+    </div>
+
+    <script src="wailsjs/runtime/runtime.js"></script>
+    <script src="wailsjs/go/main/App.js"></script>
+    <script>
+        const state = {
+            cells: new Map(),
+            isDragging: false,
+            currentLevel: 4,
+            mode: 'draw'
+        };
+
+        const $ = id => document.getElementById(id);
+        const $$ = sel => document.querySelectorAll(sel);
+
+        const els = {
+            graphBody: $('graph-body'),
+            yearSelect: $('year-select'),
+            intensitySlider: $('intensity'),
+            intensityValue: $('intensity-value'),
+            fillBgCheckbox: $('fill-bg'),
+            remoteUrlInput: $('remote-url'),
+            clearBtn: $('clear-btn'),
+            generateBtn: $('generate-btn'),
+            commitCount: $('commit-count'),
+            currentYear: $('current-year'),
+            authNotice: $('auth-notice'),
+            textInputArea: $('text-input-area'),
+            textInput: $('text-input'),
+            renderTextBtn: $('render-text-btn'),
+            graphHint: $('graph-hint').querySelector('span'),
+            colorPicker: $('color-picker'),
+            toast: $('toast'),
+            toastMsg: $('toast-message'),
+            toastIcon: $('toast-icon')
+        };
+
+        function createGraph() {
+            const dayLabels = ['', 'Mon', '', 'Wed', '', 'Fri', ''];
+            let html = '';
+
+            for (let day = 0; day < 7; day++) {
+                html += '<tr>';
+                html += `<td class="graph-label">${dayLabels[day]}</td>`;
+                
+                for (let week = 0; week < 53; week++) {
+                    html += `<td><div class="cell" data-week="${week}" data-day="${day}" data-level="0"></div></td>`;
+                }
+                html += '</tr>';
+            }
+
+            els.graphBody.innerHTML = html;
+
+            $$('.cell').forEach(cell => {
+                cell.addEventListener('mousedown', onCellMouseDown);
+                cell.addEventListener('mouseenter', onCellMouseEnter);
+                cell.addEventListener('touchstart', onCellTouchStart, { passive: false });
+                cell.addEventListener('touchmove', onCellTouchMove, { passive: false });
+            });
+        }
+
+        function onCellMouseDown(e) {
+            if (state.mode !== 'draw') return;
+            state.isDragging = true;
+            paintCell(e.target);
+            e.preventDefault();
+        }
+
+        function onCellMouseEnter(e) {
+            if (!state.isDragging || state.mode !== 'draw') return;
+            paintCell(e.target);
+        }
+
+        function onCellTouchStart(e) {
+            if (state.mode !== 'draw') return;
+            state.isDragging = true;
+            const touch = e.touches[0];
+            const cell = document.elementFromPoint(touch.clientX, touch.clientY);
+            if (cell?.classList.contains('cell')) paintCell(cell);
+            e.preventDefault();
+        }
+
+        function onCellTouchMove(e) {
+            if (!state.isDragging || state.mode !== 'draw') return;
+            const touch = e.touches[0];
+            const cell = document.elementFromPoint(touch.clientX, touch.clientY);
+            if (cell?.classList.contains('cell')) paintCell(cell);
+            e.preventDefault();
+        }
+
+        function paintCell(cell) {
+            const key = `${cell.dataset.week}-${cell.dataset.day}`;
+            const level = state.currentLevel;
+
+            if (level === 0) {
+                state.cells.delete(key);
+                cell.dataset.level = '0';
+            } else {
+                state.cells.set(key, level);
+                cell.dataset.level = level.toString();
+            }
+            updateCount();
+        }
+
+        function setupColorPicker() {
+            $$('.color-option').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    $$('.color-option').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    state.currentLevel = parseInt(btn.dataset.level);
+                });
+            });
+        }
+
+        function setupModeTabs() {
+            $$('.mode-tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    $$('.mode-tab').forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    state.mode = tab.dataset.mode;
+
+                    els.textInputArea.classList.toggle('visible', state.mode === 'text');
+                    els.colorPicker.classList.toggle('hidden', state.mode === 'text');
+                    
+                    els.graphHint.textContent = state.mode === 'draw'
+                        ? 'Click cells to draw • Drag to paint • Select colors above'
+                        : 'Type text above and click Render to generate art';
+                });
+            });
+        }
+
+        async function renderText() {
+            const text = els.textInput.value.trim();
+            if (!text) {
+                showToast('Enter some text first', 'error');
+                return;
+            }
+
+            try {
+                els.renderTextBtn.disabled = true;
+                const pointsJson = await window.go.main.App.TextToPoints(text);
+                const points = JSON.parse(pointsJson);
+
+                clearGraph();
+                points.forEach(p => {
+                    const key = `${p.week}-${p.day}`;
+                    state.cells.set(key, 4);
+                    const cell = document.querySelector(`.cell[data-week="${p.week}"][data-day="${p.day}"]`);
+                    if (cell) cell.dataset.level = '4';
+                });
+                updateCount();
+
+                if (points.length === 0) {
+                    showToast('No characters rendered. Try shorter text.', 'error');
+                }
+            } catch (err) {
+                showToast('Failed to render text', 'error');
+            } finally {
+                els.renderTextBtn.disabled = false;
+            }
+        }
+
+        function clearGraph() {
+            state.cells.clear();
+            $$('.cell').forEach(c => c.dataset.level = '0');
+            updateCount();
+        }
+
+        function updateCount() {
+            const intensity = parseInt(els.intensitySlider.value);
+            let total = 0;
+            state.cells.forEach(level => {
+                total += Math.ceil((level / 4) * intensity);
+            });
+            els.commitCount.textContent = total.toLocaleString();
+        }
+
+        async function generate() {
+            if (state.cells.size === 0) {
+                showToast('Draw something on the graph first!', 'error');
+                return;
+            }
+
+            const points = Array.from(state.cells.entries()).map(([key, level]) => {
+                const [week, day] = key.split('-').map(Number);
+                return { week, day };
+            });
+
+            els.generateBtn.disabled = true;
+            els.generateBtn.innerHTML = '<span class="spinner"></span> Generating...';
+
+            try {
+                const result = await window.go.main.App.Generate(
+                    JSON.stringify(points),
+                    parseInt(els.yearSelect.value),
+                    parseInt(els.intensitySlider.value),
+                    els.fillBgCheckbox.checked,
+                    els.remoteUrlInput.value
+                );
+
+                if (result === 'success') {
+                    const msg = els.remoteUrlInput.value 
+                        ? '✓ Commits generated and pushed!' 
+                        : '✓ Commits generated locally!';
+                    showToast(msg, 'success');
+                } else {
+                    showToast(result.replace('error: ', ''), 'error');
+                }
+            } catch (err) {
+                showToast('An unexpected error occurred', 'error');
+            }
+
+            els.generateBtn.disabled = false;
+            els.generateBtn.innerHTML = `
+                <svg viewBox="0 0 16 16" width="18" height="18" fill="currentColor">
+                    <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Zm4.879-2.773 4.264 2.559a.25.25 0 0 1 0 .428l-4.264 2.559A.25.25 0 0 1 6 10.559V5.442a.25.25 0 0 1 .379-.215Z"></path>
+                </svg>
+                Generate Commits
+            `;
+        }
+
+        function showToast(message, type) {
+            els.toast.className = `toast ${type} visible`;
+            els.toastMsg.textContent = message;
+            els.toastIcon.innerHTML = type === 'success'
+                ? '<svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M8 16A8 8 0 1 1 8 0a8 8 0 0 1 0 16Zm3.78-9.72a.751.751 0 0 0-.018-1.042.751.751 0 0 0-1.042-.018L6.75 9.19 5.28 7.72a.751.751 0 0 0-1.042.018.751.751 0 0 0-.018 1.042l2 2a.75.75 0 0 0 1.06 0Z"></path></svg>'
+                : '<svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M2.343 13.657A8 8 0 1 1 13.658 2.343 8 8 0 0 1 2.343 13.657ZM6.03 4.97a.751.751 0 0 0-1.042.018.751.751 0 0 0-.018 1.042L6.94 8 4.97 9.97a.749.749 0 0 0 .326 1.275.749.749 0 0 0 .734-.215L8 9.06l1.97 1.97a.749.749 0 0 0 1.275-.326.749.749 0 0 0-.215-.734L9.06 8l1.97-1.97a.749.749 0 0 0-.326-1.275.749.749 0 0 0-.734.215L8 6.94Z"></path></svg>';
+            
+            setTimeout(() => els.toast.classList.remove('visible'), 4000);
+        }
+
+        function setupEvents() {
+            document.addEventListener('mouseup', () => state.isDragging = false);
+            document.addEventListener('touchend', () => state.isDragging = false);
+
+            els.yearSelect.addEventListener('change', () => {
+                els.currentYear.textContent = els.yearSelect.value;
+            });
+
+            els.intensitySlider.addEventListener('input', () => {
+                els.intensityValue.textContent = els.intensitySlider.value;
+                updateCount();
+            });
+
+            els.remoteUrlInput.addEventListener('input', () => {
+                els.authNotice.classList.toggle('visible', els.remoteUrlInput.value.trim() !== '');
+            });
+
+            els.clearBtn.addEventListener('click', clearGraph);
+            els.generateBtn.addEventListener('click', generate);
+            els.renderTextBtn.addEventListener('click', renderText);
+            els.textInput.addEventListener('keypress', e => {
+                if (e.key === 'Enter') renderText();
+            });
+        }
+
+        function init() {
+            createGraph();
+            setupColorPicker();
+            setupModeTabs();
+            setupEvents();
+            updateCount();
+        }
+
+        init();
+    </script>
+</body>
+</html>
