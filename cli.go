@@ -46,7 +46,7 @@ func main() {
 }
 
 func printHelp() {
-	fmt.Println(`
+	fmt.Print(`
   gitdraw — contribution graph art
 
   Usage:
